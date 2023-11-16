@@ -559,7 +559,7 @@ public class Main {
             return;
         }
 
-        // Create a list of students sorted by Database Management System marks in descending order
+
         List<Student> sortedStudents = new ArrayList<>(students.values());
         sortedStudents.sort((s1, s2) -> Integer.compare(s2.getMarks("Database Management System"), s1.getMarks("Database Management System")));
 
