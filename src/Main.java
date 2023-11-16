@@ -577,8 +577,6 @@ public class Main {
 
         System.out.println("+------------------+----------------------+---------------------------+");
 
-        // ... (existing code)
-
         System.out.print("Do you want to stay in this view? (yes/no): ");
         String response = scanner.nextLine().toLowerCase();
         if (!response.equals("yes")) {
