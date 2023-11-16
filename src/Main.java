@@ -396,30 +396,17 @@ public class Main {
             if (pfMarks == -1 || dbmsMarks == -1) {
                 System.out.println("Marks yet to be added for this student.");
             } else {
-                System.out.println("Marks - Programming Fundamentals: " + pfMarks);
-                System.out.println("Marks - Database Management System: " + dbmsMarks);
+                System.out.println("+------------------+----------------------+---------------------------+");
+                System.out.println("| Student ID       | Name                 | Marks - PF | Marks - DBMS |");
+                System.out.println("+------------------+----------------------+---------------------------+");
+                System.out.printf("| %-16s | %-20s | %-10d | %-12d |\n",
+                        student.getStudentId(), student.getName(), pfMarks, dbmsMarks);
 
-                // Calculate total marks, average marks, and rank
-                int totalMarks = pfMarks + dbmsMarks;
-                double avgMarks = totalMarks / 2.0;
-                int rank = calculateRank(studentId);
+                // ... (existing code)
 
-                System.out.println("Total Marks: " + totalMarks);
-                System.out.println("Average Marks: " + avgMarks);
-                System.out.println("Rank: " + rank + getRankSuffix(rank));
-
-                // Display top three and last rank positions
-                if (rank == 1) {
-                    System.out.println("First Rank (Gold Medalist)");
-                } else if (rank == 2) {
-                    System.out.println("Second Rank (Silver Medalist)");
-                } else if (rank == 3) {
-                    System.out.println("Third Rank (Bronze Medalist)");
-                } else if (rank == students.size()) {
-                    System.out.println("Last Rank (Tail Ender)");
-                }
-
+                System.out.println("+------------------+----------------------+---------------------------+");
             }
+
 
             System.out.print("Do you want to view details for another student? (yes/no): ");
             String response = scanner.nextLine().toLowerCase();
@@ -478,18 +465,21 @@ public class Main {
             return Integer.compare(totalMarks2, totalMarks1);
         });
 
-        System.out.println("Student Ranks:");
+        System.out.println("+-------+------------------+----------------------+--------------+-----------------+");
+        System.out.println("| Rank  | Student ID       | Name                 | Total Marks  | Average Marks   |");
+        System.out.println("+-------+------------------+----------------------+--------------+-----------------+");
 
         for (int i = 0; i < sortedStudents.size(); i++) {
             Student student = sortedStudents.get(i);
             int totalMarks = student.getMarks("Programming Fundamentals") + student.getMarks("Database Management System");
             double avgMarks = totalMarks / 2.0;
 
-            System.out.println((i + 1) + ". Student ID: " + student.getStudentId());
-            System.out.println("   Name: " + student.getName());
-            System.out.println("   Total Marks: " + totalMarks);
-            System.out.println("   Average Marks: " + avgMarks);
+            System.out.printf("| %-5d | %-16s | %-20s | %-12d | %-15.2f |\n",
+                    (i + 1), student.getStudentId(), student.getName(), totalMarks, avgMarks);
         }
+
+        System.out.println("+-------+------------------+----------------------+--------------+-----------------+");
+
 
         System.out.print("Do you want to stay in this view? (yes/no): ");
         String response = scanner.nextLine().toLowerCase();
@@ -517,15 +507,20 @@ public class Main {
 
         if (students.containsKey(studentId)) {
             Student student = students.get(studentId);
-            System.out.println("Student found:");
-            System.out.println("ID: " + student.getStudentId());
-            System.out.println("Name: " + student.getName());
-            System.out.println("Programming Fundamentals Marks: " + student.getMarks("Programming Fundamentals"));
-            System.out.println("Database Management System Marks: " + student.getMarks("Database Management System"));
+
+            System.out.println("+------------------+----------------------+---------------------------+");
+            System.out.println("| Student ID       | Name                 | Marks - PF | Marks - DBMS |");
+            System.out.println("+------------------+----------------------+---------------------------+");
+            System.out.printf("| %-16s | %-20s | %-10d | %-12d |\n",
+                    student.getStudentId(), student.getName(),
+                    student.getMarks("Programming Fundamentals"), student.getMarks("Database Management System"));
+            System.out.println("+------------------+----------------------+---------------------------+");
+
         } else {
             System.out.println("Student not found!");
         }
     }
+
     private static void printBestProgrammingFundamentals() {
         if (students.isEmpty()) {
             System.out.println("No students in the system.");
@@ -536,16 +531,21 @@ public class Main {
         List<Student> sortedStudents = new ArrayList<>(students.values());
         sortedStudents.sort((s1, s2) -> Integer.compare(s2.getMarks("Programming Fundamentals"), s1.getMarks("Programming Fundamentals")));
 
-        System.out.println("Top Performers in Programming Fundamentals:");
+        System.out.println("+------------------+----------------------+---------------------------+");
+        System.out.println("| Rank | Student ID | Name                 | Marks - PF                |");
+        System.out.println("+------------------+----------------------+---------------------------+");
 
         for (int i = 0; i < sortedStudents.size(); i++) {
             Student student = sortedStudents.get(i);
             int pfMarks = student.getMarks("Programming Fundamentals");
 
-            System.out.println((i + 1) + ". Student ID: " + student.getStudentId());
-            System.out.println("   Name: " + student.getName());
-            System.out.println("   Marks in Programming Fundamentals: " + pfMarks);
+            System.out.printf("| %-4d | %-10s | %-20s | %-25d |\n",
+                    (i + 1), student.getStudentId(), student.getName(), pfMarks);
         }
+
+        System.out.println("+------------------+----------------------+---------------------------+");
+
+        // ... (existing code)
 
         System.out.print("Do you want to stay in this view? (yes/no): ");
         String response = scanner.nextLine().toLowerCase();
@@ -563,16 +563,21 @@ public class Main {
         List<Student> sortedStudents = new ArrayList<>(students.values());
         sortedStudents.sort((s1, s2) -> Integer.compare(s2.getMarks("Database Management System"), s1.getMarks("Database Management System")));
 
-        System.out.println("Top Performers in Database Management System:");
+        System.out.println("+------------------+----------------------+---------------------------+");
+        System.out.println("| Rank | Student ID | Name                 | Marks - DBMS               |");
+        System.out.println("+------------------+----------------------+---------------------------+");
 
         for (int i = 0; i < sortedStudents.size(); i++) {
             Student student = sortedStudents.get(i);
             int dbmsMarks = student.getMarks("Database Management System");
 
-            System.out.println((i + 1) + ". Student ID: " + student.getStudentId());
-            System.out.println("   Name: " + student.getName());
-            System.out.println("   Marks in Database Management System: " + dbmsMarks);
+            System.out.printf("| %-4d | %-10s | %-20s | %-25d |\n",
+                    (i + 1), student.getStudentId(), student.getName(), dbmsMarks);
         }
+
+        System.out.println("+------------------+----------------------+---------------------------+");
+
+        // ... (existing code)
 
         System.out.print("Do you want to stay in this view? (yes/no): ");
         String response = scanner.nextLine().toLowerCase();
